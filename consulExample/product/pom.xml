@@ -36,7 +36,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<executable>true</executable>
-					<finalName>consul_product</finalName>
+					<finalName>consul-product</finalName>
 				</configuration>
 			</plugin>
 		</plugins>

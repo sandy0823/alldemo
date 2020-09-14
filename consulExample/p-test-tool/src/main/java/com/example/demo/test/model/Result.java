@@ -1,4 +1,4 @@
-package com.example.demo.test;
+package com.example.demo.test.model;
 
 public class Result {
     private int threadCount;

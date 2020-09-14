@@ -3,6 +3,7 @@ package com.wf.consul.configuration;
 import java.lang.reflect.Field;
 
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.consul.ConditionalOnConsulEnabled;
 import org.springframework.cloud.consul.ConsulAutoConfiguration;
@@ -24,6 +25,7 @@ import com.wf.consul.transport.ConsulHttpsTransport;
 @EnableConfigurationProperties
 @ConditionalOnConsulEnabled
 @AutoConfigureBefore(ConsulAutoConfiguration.class)
+@ConditionalOnProperty(name = "spring.cloud.consul.http.enabled", matchIfMissing = true)
 public class ConsulOverrideConfiguration {
 	static final int DEFAULT_MAX_CONNECTIONS = 1000;
 	static final int DEFAULT_MAX_PER_ROUTE_CONNECTIONS = 500;

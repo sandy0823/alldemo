@@ -12,16 +12,17 @@
 	<name>consul examples</name>
 	<description>product demo or consumer demo or some tools </description>
 	<modules>
+    	<module>springboot-consul-core</module>
 		<module>consumer</module>
 		<module>product</module>
 		<module>p-test-tool</module>
-		<module>springboot-consul-core</module>
 	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring-cloud.version>Greenwich.SR3</spring-cloud.version>
 		<spring-boot.version>2.1.0.RELEASE</spring-boot.version>
+		<springboot-consul-core.version>0.0.1-SNAPSHOT</springboot-consul-core.version>
 	</properties>
 
 	<dependencyManagement>
@@ -40,6 +41,12 @@
 				<version>${spring-boot.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>com.demo</groupId>
+				<artifactId>springboot-consul-core</artifactId>
+				<version>${springboot-consul-core.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -95,6 +102,26 @@
 				</excludes>
 			</resource>
 			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.yml</include>
+					<include>**/*.yaml</include>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<excludes>
+					<exclude>**/*.yml</exclude>
+					<exclude>**/*.yaml</exclude>
+					<exclude>**/*.properties</exclude>
+					<exclude>**/*.xml</exclude>
+				</excludes>
+			</resource>
+			<resource>
 				<directory>src/main/config</directory>
 				<filtering>true</filtering>
 				<includes>
@@ -115,5 +142,25 @@
 				</excludes>
 			</resource>
 		</resources>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>${spring-boot.version}</version>
+					<executions>
+						<execution>
+							<id>repackage</id>
+							<goals>
+								<goal>repackage</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<mainClass>${start-class}</mainClass>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 </project>

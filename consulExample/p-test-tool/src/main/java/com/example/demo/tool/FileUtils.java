@@ -1,4 +1,4 @@
-package com.example.demo.test;
+package com.example.demo.tool;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
+
+import com.example.demo.test.model.Result;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,7 +54,7 @@ public class FileUtils {
 
 	@SuppressWarnings("deprecation")
 	public static void writeResult(List<Result> results, String filePath,int threadCounts,
-			String consulPoolConnections,int connectTimeout) throws IOException {
+			int consulPoolConnections,int connectTimeout) throws IOException {
 		File file = new File(filePath);
 		FileOutputStream fos = null;
 		OutputStreamWriter osw = null;

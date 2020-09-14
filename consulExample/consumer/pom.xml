@@ -42,7 +42,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
+		</dependency>
+		<dependency>
+			 <groupId>com.demo</groupId>
+			 <artifactId>springboot-consul-core</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -53,7 +56,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<executable>true</executable>
-					<finalName>demo</finalName>
+					<finalName>consul-consumer</finalName>
 				</configuration>
 			</plugin>
 		</plugins>

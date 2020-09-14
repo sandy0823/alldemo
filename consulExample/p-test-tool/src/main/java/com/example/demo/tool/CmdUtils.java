@@ -1,4 +1,4 @@
-package com.example.demo.test;
+package com.example.demo.tool;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.example.demo.test.StreamManage;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 
@@ -136,8 +137,8 @@ public class CmdUtils {
 		
 		errorStreamThread.setEnd(true);
 		stream.setEnd(true);
-//		process.destroy(); // 销毁子进程
-//		process = null;
+		process.destroy(); // 销毁子进程
+		process = null;
 
 		if (StringUtils.isNotEmpty(errorStreamThread.getResult())) {
 			result = errorStreamThread.getResult();

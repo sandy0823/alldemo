@@ -1,39 +1,48 @@
 package com.example.demo.test;
 
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import com.example.demo.test.model.Config;
+import com.example.demo.tool.FileUtils;
+import com.example.demo.tool.PropertyUtils;
+
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * A服务调用consul接口获取服务数据，由于A继承 spring cloud consul对接 consul 开源软件，而spring cloud consul 使用<br>
+ * http连接池管理对接consul的TCP连接。经过试验，发现在连接池中无建立好的连接（一般发生在A服务重启），并发调用consul接口<br>
+ * 会初始化连接，而这部分损耗会直接影响并发数。<br>
+ * 本工具主要是测试连接池还未建立好时的可达并发连接数验证。<br>
+ * PS：
+ * 每次并发调用之后，会暂停2s,
+ * @author sandy
+ *
+ */
 @Slf4j
 public class App {
 	
-	/*
-	 * args[0]:app 的启动路径 args[1]:线程连接数 args[2]:consul 连接池的target host 连接池数量
-	 */
 	public static void main(String[] args) {
-		String startAPPAbPath = args[0];
-		int threadCounts = Integer.valueOf(args[1]);
-		String consulPoolConnections = args[2];
-		int connectTimeout = Integer.valueOf(args[3]);
-
-		log.info("startAPPAbPath:[{}],threadCounts[{}],consulPoolConnections[{}],connectTimeout[{}]", 
-				startAPPAbPath, threadCounts,consulPoolConnections,connectTimeout);
-
-		// 修改application.properties
-		String applicationFilePath = startAPPAbPath + "/config/application.properties";
-		FileUtils.setValue(applicationFilePath, "spring.cloud.consul.http.max-per-route-connections",
-				consulPoolConnections);
-		FileUtils.setValue(applicationFilePath, "spring.cloud.consul.http.connection-timeout",
-				String.valueOf(connectTimeout));
-		for(int i =0;i<10;i++){
-			Service service = new Service(threadCounts,consulPoolConnections,startAPPAbPath,10,
-					startAPPAbPath+"/result.txt",connectTimeout);
-			service.loopExec();
-			try {
-				Thread.sleep(10000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 		
+		Config config = PropertyUtils.loadConfig();
+		log.info(config.toString());
+
+		if(StringUtils.isEmpty(config.getServiceStartPath()) || StringUtils.isEmpty(config.getHttpURL())
+				|| StringUtils.isEmpty(config.getServiceJarName())){
+			throw new IllegalArgumentException("please check config if is "
+					+ "correct,service.start.path or service.jar.name or http.url is empty");
+		}
+		// 修改application.properties
+		String applicationFilePath = config.getServiceStartPath() + "/config/application.properties";
+		FileUtils.setValue(applicationFilePath, "spring.cloud.consul.http.max-per-route-connections",
+				String.valueOf(config.getHttpConnectPoolSize()));
+		FileUtils.setValue(applicationFilePath, "spring.cloud.consul.http.connection-timeout",
+				String.valueOf(config.getHttpConnectTimeout()));
+		
+		Service service = new Service(config.getParallelThreadsCount(),config.getHttpConnectPoolSize(),
+				config.getServiceStartPath(),config.getLoopCounts(),
+				config.getServiceStartPath()+"/result.txt",config.getHttpConnectTimeout(),config.getHttpURL(),
+				config.isServiceRestart(),config.getServiceJarName());
+		service.loopExec();
 	}
 }
