@@ -1,0 +1,35 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.demo</groupId>
+		<artifactId>spring-cloud-demo</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>consul-demo</artifactId>
+	<packaging>pom</packaging>
+	<name>Demos for Spring Cloud Consul</name>
+	<description>Demos for Spring Cloud Consul</description>
+
+	<modules>
+		<module>springboot-consul-core</module>
+		<module>consumer</module>
+		<module>product</module>
+		<module>p-test-tool</module>
+	</modules>
+
+
+	<properties>
+		<springboot-consul-core.version>0.0.1-SNAPSHOT</springboot-consul-core.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.demo</groupId>
+				<artifactId>springboot-consul-core</artifactId>
+				<version>${springboot-consul-core.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+</project>

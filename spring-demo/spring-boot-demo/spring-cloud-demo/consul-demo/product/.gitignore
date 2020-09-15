@@ -2,3 +2,5 @@
 /.project
 /target/
 /.springBeans
+/LOG_PATH_IS_UNDEFINED/
+/product/

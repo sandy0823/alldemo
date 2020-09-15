@@ -8,10 +8,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 @SpringBootApplication
 @EnableFeignClients
-public class ConsulDemoApplication 
+public class ConsulConsumerApplication 
 {
     public static void main( String[] args )
     {
-    	SpringApplication.run(ConsulDemoApplication.class, args);
+    	SpringApplication.run(ConsulConsumerApplication.class, args);
     }
 }

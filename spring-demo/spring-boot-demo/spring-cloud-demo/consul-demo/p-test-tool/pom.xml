@@ -3,19 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.demo</groupId>
-		<artifactId>consulExample</artifactId>
+		<artifactId>consul-demo</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>p-test-tool</artifactId>
 	<name>parall call interface for consul</name>
-
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
 
 	<build>
 	  <plugins>
