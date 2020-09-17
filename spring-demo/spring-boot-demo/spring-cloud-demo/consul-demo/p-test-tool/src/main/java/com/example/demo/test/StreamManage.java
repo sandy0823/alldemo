@@ -1,6 +1,7 @@
 package com.example.demo.test;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
@@ -27,19 +28,23 @@ public class StreamManage extends Thread{
         String line = null;
         StringBuffer resultBuffer = new StringBuffer();
         try{
-            while((line = bufferedReader.readLine())!=null && !end){
-                if (type.equals("Error")) {
-                    log.error(line);
-                }else{
-                	log.debug(line);
-                }
-                resultBuffer.append(line);
-    			resultBuffer.append("\r\n");
+            while(!end){
+            	if((line = bufferedReader.readLine())!=null){
+            		if (type.equals("Error")) {
+                        log.error(line);
+                    }else{
+                    	log.debug(line);
+                    }
+                    resultBuffer.append(line);
+        			resultBuffer.append("\r\n");
+            	}
             }
             log.info("result:[{}]", resultBuffer.toString());
     		result = resultBuffer.toString();
-        }catch (Throwable e){
-            log.error("cmd fail.",e);
+        }catch (IOException e){
+        	//ignore
+        }catch(Throwable e){
+            log.warn("cmd fail.",e);
         }finally{
         	end = true;
         }

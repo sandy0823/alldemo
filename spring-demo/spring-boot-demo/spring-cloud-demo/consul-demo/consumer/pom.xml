@@ -44,8 +44,8 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 		</dependency>
 		<dependency>
-			 <groupId>com.demo</groupId>
-			 <artifactId>springboot-consul-core</artifactId>
+			<groupId>com.demo</groupId>
+			<artifactId>springboot-consul-core</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -57,6 +57,30 @@
 				<configuration>
 					<executable>true</executable>
 					<finalName>consul-consumer</finalName>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<!-- 绑定到package生命周期 -->
+						<phase>package</phase>
+						<goals>
+							<!-- 只运行一次 -->
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+				     <finalName>consul-consumer-demo</finalName>
+				     <appendAssemblyId>false</appendAssemblyId> 
+					<!-- 配置描述符文件 -->
+					 <descriptors>  
+					    <descriptor>assembly.xml</descriptor>
+					 </descriptors>
+					<outputDirectory>output</outputDirectory>  
 				</configuration>
 			</plugin>
 		</plugins>

@@ -39,6 +39,30 @@
 					<finalName>consul-product</finalName>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<!-- 绑定到package生命周期 -->
+						<phase>package</phase>
+						<goals>
+							<!-- 只运行一次 -->
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+				     <finalName>consul-product-demo</finalName>
+				     <appendAssemblyId>false</appendAssemblyId> 
+					<!-- 配置描述符文件 -->
+					 <descriptors>  
+					    <descriptor>assembly.xml</descriptor>
+					 </descriptors>
+					<outputDirectory>output</outputDirectory>  
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>

@@ -11,6 +11,8 @@ import com.example.demo.test.annotation.ConfigKey;
 public class Config {
 	@ConfigKey("service.start.path")
 	private String serviceStartPath;
+	@ConfigKey("service.start.wait")
+	private int serviceStartWait = 10000;  //单位ms
 	@ConfigKey("parallel.threads.count")
 	private int parallelThreadsCount = 10;
 	@ConfigKey("http.connect.pool.size")
@@ -21,8 +23,6 @@ public class Config {
 	private String httpURL;
 	@ConfigKey("service.restart")
 	private boolean serviceRestart = true;
-	@ConfigKey("service.jar.name")
-	private String serviceJarName;
 	@ConfigKey("loop.counts")
 	private int loopCounts = 5;
 
@@ -74,14 +74,6 @@ public class Config {
 		this.serviceRestart = serviceRestart;
 	}
 
-	public String getServiceJarName() {
-		return serviceJarName;
-	}
-
-	public void setServiceJarName(String serviceJarName) {
-		this.serviceJarName = serviceJarName;
-	}
-
 	public int getLoopCounts() {
 		return loopCounts;
 	}
@@ -90,11 +82,19 @@ public class Config {
 		this.loopCounts = loopCounts;
 	}
 
+	public int getServiceStartWait() {
+		return serviceStartWait;
+	}
+
+	public void setServiceStartWait(int serviceStartWait) {
+		this.serviceStartWait = serviceStartWait;
+	}
+
 	@Override
 	public String toString() {
-		return "Config [serviceStartPath=" + serviceStartPath + ", parallelThreadsCount=" + parallelThreadsCount
-				+ ", httpConnectPoolSize=" + httpConnectPoolSize + ", httpConnectTimeout=" + httpConnectTimeout
-				+ ", httpURL=" + httpURL + ", serviceRestart=" + serviceRestart + ", serviceJarName=" + serviceJarName
-				+ ", loopCounts=" + loopCounts + "]";
+		return "Config [serviceStartPath=" + serviceStartPath + ", serviceStartWait=" + serviceStartWait
+				+ ", parallelThreadsCount=" + parallelThreadsCount + ", httpConnectPoolSize=" + httpConnectPoolSize
+				+ ", httpConnectTimeout=" + httpConnectTimeout + ", httpURL=" + httpURL + ", serviceRestart="
+				+ serviceRestart + ", loopCounts=" + loopCounts + "]";
 	}
 }

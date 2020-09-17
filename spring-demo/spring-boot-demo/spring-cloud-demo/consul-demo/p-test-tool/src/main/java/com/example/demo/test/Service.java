@@ -27,10 +27,10 @@ public class Service {
 	private int connectTimeout;
 	private String restURL;
 	boolean restart ;
-	private String jarName;
+	private int startAppWaitTime;
 	
 	public Service(int threadCounts,int consulPoolConnections,String startAPPAbPath,int loopCount,
-			String resultFilePath,int connectTimeout,String restURL,boolean restart,String jarName){
+			String resultFilePath,int connectTimeout,String restURL,boolean restart,int startAppWaitTime){
 		this.threadCounts = threadCounts;
 		this.startAPPAbPath = startAPPAbPath;
 		this.loopCounts = loopCount;
@@ -39,7 +39,7 @@ public class Service {
 		this.connectTimeout = connectTimeout;
 		this.restURL = restURL;
 		this.restart = restart;
-		this.jarName = jarName;
+		this.startAppWaitTime = startAppWaitTime;
 	}
 	
 	public void loopExec(){
@@ -73,7 +73,7 @@ public class Service {
 			result = true;
 		}else if (CmdUtils.startApp(startAPPAbPath)) {
 			try {
-				Thread.sleep(3000);   //wait app has started
+				Thread.sleep(startAppWaitTime);   //wait app has started
 			} catch (InterruptedException e) {
 				//ingore
 			}
@@ -85,7 +85,7 @@ public class Service {
 			long start = System.currentTimeMillis();
 			taketime = 0;
 			for(int i = 0;i<threadCounts;i++){
-				new Thread(){
+				new Thread("Request-Thread-"+i){
 					@Override
 					public void run() {
 						try {
@@ -100,6 +100,9 @@ public class Service {
 							log.error("send request fail",e);
 							errorCount.incrementAndGet();
 						} catch (IOException e) {
+							log.error("send request fail",e);
+							errorCount.incrementAndGet();
+						}catch(Throwable e){
 							log.error("send request fail",e);
 							errorCount.incrementAndGet();
 						}finally{
@@ -120,9 +123,9 @@ public class Service {
 			taketime = System.currentTimeMillis() - start;
 		}
 		
-		if(restart){
+		if(restart && result){
 			// 停止程序
-			CmdUtils.stopApp();
+			CmdUtils.stopApp(startAPPAbPath);
 		}
 
 		//统计数据

@@ -1,6 +1,5 @@
 package com.example.demo.test;
 
-import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.example.demo.test.model.Config;
@@ -27,22 +26,29 @@ public class App {
 		Config config = PropertyUtils.loadConfig();
 		log.info(config.toString());
 
-		if(StringUtils.isEmpty(config.getServiceStartPath()) || StringUtils.isEmpty(config.getHttpURL())
-				|| StringUtils.isEmpty(config.getServiceJarName())){
+		if(StringUtils.isEmpty(config.getServiceStartPath()) || StringUtils.isEmpty(config.getHttpURL())){
 			throw new IllegalArgumentException("please check config if is "
 					+ "correct,service.start.path or service.jar.name or http.url is empty");
 		}
 		// 修改application.properties
 		String applicationFilePath = config.getServiceStartPath() + "/config/application.properties";
-		FileUtils.setValue(applicationFilePath, "spring.cloud.consul.http.max-per-route-connections",
-				String.valueOf(config.getHttpConnectPoolSize()));
-		FileUtils.setValue(applicationFilePath, "spring.cloud.consul.http.connection-timeout",
-				String.valueOf(config.getHttpConnectTimeout()));
+		if(!FileUtils.setValue(applicationFilePath, "spring.cloud.consul.http.max-per-route-connections",
+				String.valueOf(config.getHttpConnectPoolSize()))){
+			log.error("set connectPoolSize into application.properties of app wrongly.");
+			return;
+		}
+		if(!FileUtils.setValue(applicationFilePath, "spring.cloud.consul.http.connection-timeout",
+				String.valueOf(config.getHttpConnectTimeout()))){
+			log.error("set connectTimeOut into application.properties of app wrongly.");
+			return;
+		}
 		
 		Service service = new Service(config.getParallelThreadsCount(),config.getHttpConnectPoolSize(),
 				config.getServiceStartPath(),config.getLoopCounts(),
 				config.getServiceStartPath()+"/result.txt",config.getHttpConnectTimeout(),config.getHttpURL(),
-				config.isServiceRestart(),config.getServiceJarName());
+				config.isServiceRestart(),config.getServiceStartWait());
 		service.loopExec();
+		
+		System.exit(0);
 	}
 }

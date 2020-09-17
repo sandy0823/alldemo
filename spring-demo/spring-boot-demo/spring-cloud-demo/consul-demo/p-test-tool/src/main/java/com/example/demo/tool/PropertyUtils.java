@@ -55,7 +55,16 @@ public class PropertyUtils {
 				String value = proFromClass.getProperty(key);
 				if (StringUtils.isNotEmpty(value)) {
 					try {
-						field.set(config, value);
+						String type = field.getType().toString();//得到此属性的类型
+						if(type.endsWith("String")){
+							field.set(config, value);
+						}else if(type.endsWith("int")){
+							field.set(config, Integer.valueOf(value));
+						}else if(type.endsWith("boolean")){
+							field.set(config, Boolean.valueOf(value));
+						}else{
+							field.set(config, value);
+						}
 					} catch (IllegalArgumentException | IllegalAccessException e) {
 						log.error("cannot set config value to object of Config class",e);
 					}
@@ -69,18 +78,28 @@ public class PropertyUtils {
 		try {
 			String path = PropertyUtils.class.getProtectionDomain().getCodeSource().getLocation().getFile();
 			path = java.net.URLDecoder.decode(path, "UTF-8");
-			log.info("config dir path is [{}]", path);
-			int lastIndex = path.lastIndexOf(File.separator) + 1;
-			path = path.substring(0, lastIndex);
-
+			log.info("jar path is [{}]", path);
+			int index = path.lastIndexOf("/");
+			if(index == -1){
+				index = path.lastIndexOf("\\");
+			}
+			int lastIndex = index + 1;
+			String osName = System.getProperty("os.name");
+			if(osName.toLowerCase().contains("windows")){  //windows 平台
+				path = path.substring(1, lastIndex);
+			}else if(osName.toLowerCase().contains("linux")){
+				path = path.substring(0, lastIndex);
+			}
+			
 			path = StringUtils.joinWith(File.separator, path, CONFIG_DIR, APPLICATION_PROPERTIES);
+			log.info("config dir path is [{}]", path);
 			return loadProperties(new FileInputStream(new File(path)));
 		} catch (UnsupportedEncodingException e) {
 			log.error("cannot get jar path", e);
 		} catch (FileNotFoundException e) {
 			log.warn("cannot get application.properties in config dir", e);
 		}
-		return null;
+		return new Properties() ;
 	}
 
 	private static Properties loadFromClass() {
@@ -89,7 +108,7 @@ public class PropertyUtils {
 		} catch (Throwable ex) {
 			log.error("cannot load application.properties from context of class", ex);
 		}
-		return null;
+		return new Properties() ;
 	}
 
 	private static Properties loadProperties(InputStream inputStream) {
@@ -107,6 +126,6 @@ public class PropertyUtils {
 				IOUtils.closeQuietly(inputStream);
 			}
 		}
-		return null;
+		return pros;
 	}
 }
