@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+	   <groupId>com.summer</groupId>
+	   <artifactId>springboot</artifactId>
+	   <version>${rversion}</version>
+	   <relativePath>../</relativePath>
+	</parent>
+	<artifactId>springboot-dependencies</artifactId>
+	<packaging>pom</packaging>
+	<name></name>
+	<description></description>
+
+	<properties>
+		<spring-boot.version>2.1.0.RELEASE</spring-boot.version>
+	</properties>
+	
+	<dependencyManagement>
+	   <dependencies>
+	      <dependency>
+	         <groupId>org.springframework.boot</groupId>
+			 <artifactId>spring-boot-starter-parent</artifactId>
+			 <version>${spring-boot.version}</version>
+			 <type>pom</type>
+			 <scope>import</scope>
+	      </dependency>
+	   </dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>${spring-boot.version}</version>
+					<executions>
+						<execution>
+							<id>repackage</id>
+							<goals>
+								<goal>repackage</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<mainClass>${start-class}</mainClass>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.summer</groupId>
+		<artifactId>consul-demo</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>p-test-tool</artifactId>
+	<name>parall call interface for consul</name>
+
+	<build>
+	  <finalName>p-test-tool</finalName>
+	  <plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-jar-plugin</artifactId>
+			<version>2.4</version>
+			<configuration>
+				<archive>
+					<manifest>
+					    <!--是否要把第三方jar放到manifest的classpath中-->
+						<addClasspath>true</addClasspath>
+						<!--生成的manifest中classpath的前缀，
+                                                                                 因为要把第三方jar放到lib目录下，
+                                                                                 所以classpath的前缀是lib/-->
+						<classpathPrefix>lib/</classpathPrefix>
+						<mainClass>com.example.demo.test.App</mainClass>
+					</manifest>
+				</archive>
+			</configuration>
+		</plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-assembly-plugin</artifactId>
+			<executions>
+				<execution>
+					<id>make-assembly</id>
+					<phase>package</phase>
+					<goals>
+						<goal>single</goal>
+					</goals>
+				</execution>
+			</executions>
+			<configuration>
+				 <descriptors>  
+					    <descriptor>assembly.xml</descriptor>
+					 </descriptors>
+					<outputDirectory>output</outputDirectory>
+			</configuration>
+		</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,88 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.summer</groupId>
+		<artifactId>consul-demo</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>consumer</artifactId>
+	<name>consumer for consul</name>
+	<description>consumer for consul</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-consul-discovery</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+		</dependency>
+		<!-- 将consul 当成 config使用 -->
+		<!-- <dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-starter-consul-config</artifactId> 
+			</dependency> -->
+		<!-- feign 使用apache httpclient -->
+		<dependency>
+			<groupId>io.github.openfeign</groupId>
+			<artifactId>feign-httpclient</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.summer</groupId>
+			<artifactId>springcloud-consul-configuration-pool</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<executable>true</executable>
+					<finalName>consul-consumer</finalName>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<!-- 绑定到package生命周期 -->
+						<phase>package</phase>
+						<goals>
+							<!-- 只运行一次 -->
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+				     <finalName>consul-consumer-demo</finalName>
+				     <appendAssemblyId>false</appendAssemblyId> 
+					<!-- 配置描述符文件 -->
+					 <descriptors>  
+					    <descriptor>assembly.xml</descriptor>
+					 </descriptors>
+					<outputDirectory>output</outputDirectory>  
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
