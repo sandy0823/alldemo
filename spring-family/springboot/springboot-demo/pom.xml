@@ -14,5 +14,6 @@
 	
 	<modules>
 	   <module>spring-boot-summary</module>
+	   <module>springboot-redis-demo</module>
 	</modules>
 </project>

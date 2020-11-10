@@ -13,7 +13,7 @@
 	<description></description>
 
 	<properties>
-		<spring-boot.version>2.1.0.RELEASE</spring-boot.version>
+		<spring-boot.version>2.1.7.RELEASE</spring-boot.version>
 	</properties>
 	
 	<dependencyManagement>
@@ -24,6 +24,11 @@
 			 <version>${spring-boot.version}</version>
 			 <type>pom</type>
 			 <scope>import</scope>
+	      </dependency>
+	      <dependency>
+	        <groupId>com.summer</groupId>
+	        <artifactId>springboot-redis</artifactId>
+	        <version>${rversion}</version>
 	      </dependency>
 	   </dependencies>
 	</dependencyManagement>
