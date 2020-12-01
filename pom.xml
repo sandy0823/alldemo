@@ -13,6 +13,7 @@
 		<module>java-parent</module>
 		<module>java-projectes</module>
 		<module>spring-family</module>
+		<module>maven-projectes</module>
 	</modules>
 
 	<properties>
