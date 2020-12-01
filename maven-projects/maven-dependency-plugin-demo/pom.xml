@@ -10,7 +10,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.summe</groupId>
+			<groupId>com.summer</groupId>
 			<artifactId>maven-assembly-demo</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<classifier>package</classifier>
@@ -33,7 +33,7 @@
 						<configuration>
 							<artifactItems>
 								<artifactItem>
-									<groupId>com.summe</groupId>
+									<groupId>com.summer</groupId>
 									<artifactId>maven-assembly-demo</artifactId>
 									<version>0.0.1-SNAPSHOT</version>
 									<classifier>package</classifier>

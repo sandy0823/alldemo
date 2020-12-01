@@ -3,18 +3,18 @@
   xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.1.0 http://maven.apache.org/xsd/assembly-2.1.0.xsd">
     <id>package</id>
     <formats> 
-        <format>zip</format> 
+        <format>dir</format> 
     </formats> 
      <includeBaseDirectory>false</includeBaseDirectory>
    
     <fileSets> 
         <fileSet> 
-            <directory>bin</directory> 
+            <directory>${project.basedir}</directory> 
             <outputDirectory>/</outputDirectory> 
-        </fileSet> 
-        <fileSet> 
-            <directory>config</directory> 
-            <outputDirectory>/</outputDirectory> 
+            <includes>
+               <include>bin/**</include>
+               <include>config/**</include>
+            </includes>
         </fileSet> 
     </fileSets> 
 </assembly>
