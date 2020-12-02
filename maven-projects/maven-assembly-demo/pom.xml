@@ -28,6 +28,8 @@
 	              <descriptor>assembly-zip-deploy.xml</descriptor>
 	            </descriptors>
 	            <outputDirectory>output</outputDirectory>
+	            <!-- appendAssemblyId 表示打出的 包命名中是否包含 descriptor 文件中的 id -->
+	           <!--  <appendAssemblyId>false</appendAssemblyId> -->
 	         </configuration>
 	      </plugin>
 	   </plugins>
