@@ -11,11 +11,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration.LettuceClientConfigurationBuilder;
-import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
-import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.SocketOptions;
@@ -30,25 +25,6 @@ import io.lettuce.core.cluster.ClusterTopologyRefreshOptions;
 @Configuration
 @ConditionalOnClass(RedisClient.class)
 public class LettuceRedisConfig{
-    /**
-     * RedisTemplate配置
-     * @param connectionFactory
-     * @return
-     */
-    @Bean
-    @ConditionalOnMissingBean(RedisTemplate.class)
-    public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory connectionFactory) {
-        // 配置redisTemplate
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(connectionFactory);
-        RedisSerializer<String> redisKeySerializer = new StringRedisSerializer();
-        redisTemplate.setKeySerializer(redisKeySerializer);
-        redisTemplate.setHashKeySerializer(redisKeySerializer);
-        redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
-        redisTemplate.setHashValueSerializer(new JdkSerializationRedisSerializer());
-        redisTemplate.afterPropertiesSet();
-        return redisTemplate;
-    }
      
 @Bean
 @ConditionalOnProperty(name = "spring.redis.cluster.nodes")

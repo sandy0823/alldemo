@@ -4,4 +4,4 @@ server:
       context-path: /spring-redis-demo
 spring:
    profiles:
-      active: lettuce
+      active: jedis

@@ -15,5 +15,19 @@
 	<modules>
 	   <module>spring-boot-summary</module>
 	   <module>springboot-redis-demo</module>
+	   <module>simple-service-demo1</module>
+	   <module>simple-service-demo2</module>
 	</modules>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<executable>true</executable>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
