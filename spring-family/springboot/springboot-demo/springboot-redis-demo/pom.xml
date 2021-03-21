@@ -4,7 +4,9 @@
 	<parent>
 		<groupId>com.summer</groupId>
 		<artifactId>springboot-demo</artifactId>
-		<version>${rversion}</version>
+		 <version>${rversion}</version> 
+		<!-- <version>0.0.1-SNAPSHOT</version> -->
+		 <relativePath>../</relativePath> 
 	</parent>
 	<artifactId>springboot-redis-demo</artifactId>
 

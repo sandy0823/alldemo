@@ -18,7 +18,5 @@
 	  <module>springboot-parent</module>
 	  <module>springboot-redis</module>
 	  <module>springboot-demo</module>
-	  <module>envoy-service-demo1</module>
-	  <module>envoy-service-demo2</module>
 	</modules>
 </project>

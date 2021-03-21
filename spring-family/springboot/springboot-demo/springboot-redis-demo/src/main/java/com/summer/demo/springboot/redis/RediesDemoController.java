@@ -13,20 +13,20 @@ public class RediesDemoController {
 
 	@GetMapping("/jedis/hello")
 	public Object testJedis() {
-		Object value = redisTemplate.opsForValue().get("name");
+		Object value = redisTemplate.opsForValue().get("hello");
 		if (value == null) {
-			redisTemplate.opsForValue().set("name", "jedis");
-			value = redisTemplate.opsForValue().get("name");
+			redisTemplate.opsForValue().set("hello", "jedis");
+			value = redisTemplate.opsForValue().get("hello");
 		}
 		return value;
 	}
 
 	@GetMapping("/lettuce/hello")
 	public Object testLettuce() {
-		Object value = redisTemplate.opsForValue().get("name");
+		Object value = redisTemplate.opsForValue().get("hello");
 		if (value == null) {
-			redisTemplate.opsForValue().set("name", "lettuce");
-			value = redisTemplate.opsForValue().get("name");
+			redisTemplate.opsForValue().set("hello", "lettuce");
+			value = redisTemplate.opsForValue().get("hello");
 		}
 		return value;
 	}

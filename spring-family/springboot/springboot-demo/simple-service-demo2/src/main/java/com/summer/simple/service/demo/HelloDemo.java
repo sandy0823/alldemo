@@ -20,8 +20,9 @@ public class HelloDemo {
 	   return "hello,my name is service2";
    }
 	
-	@GetMapping("/health")
+	@GetMapping("/ping")
 	public String health(HttpServletResponse response){
+		log.info("it start to check health");
 		if(health.get()){
 			log.info("it is health");
 			return "OK";
